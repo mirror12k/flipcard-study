@@ -1,9 +1,9 @@
-body {
+body.dark-theme {
 	background-color: #222;
 	color: #ccc;
 }
 
-input.form-control {
+.dark-theme input.form-control {
 	background-color: #444;
 	border-color: #555;
 }
