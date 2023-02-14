@@ -1,0 +1,14 @@
+body {
+	background-color: #222;
+	color: #ccc;
+}
+
+input.form-control {
+	background-color: #444;
+	border-color: #555;
+}
+
+div.drop-area {
+	width: 400px; height: 100px; border: 1px solid #222; border-radius: 10px;
+	background-color: #236;
+}
