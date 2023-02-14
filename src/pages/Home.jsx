@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Home = () => {
-	return <div></div>;
+	return <div>
+		<h1>Yes</h1>
+	</div>;
 }
 export default Home
 
