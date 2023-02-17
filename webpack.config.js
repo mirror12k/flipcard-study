@@ -60,7 +60,7 @@ module.exports={
          * resolve the one with the extension listed first in the array and skip the rest. 
          * This is what enables users to leave off the extension when importing
          */
-        modules: [__dirname, "src", "node_modules"],
+        modules: [path.resolve(__dirname, "."), "src", "node_modules"],
         extensions: ['.js','.jsx','.json', ".tsx", ".ts"] 
     },
     module:{
