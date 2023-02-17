@@ -7,7 +7,7 @@ const Home = () => {
 	const [url, seturl] = useState('');
 	const [loading, setloading] = useState(false);
 	const [content, setcontent] = useState(undefined);
-	const [theme, settheme] = useState(localStorage.getItem('color-theme') ?? 'light-theme');
+	const [theme, settheme] = useState(localStorage.getItem('color-theme') ?? 'dark-theme');
 
 	const dosettheme = to => {
 		localStorage.setItem('color-theme', to);
