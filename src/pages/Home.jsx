@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ThemeSwitch from "../components/theme-switch";
 
 
 
@@ -7,14 +8,6 @@ const Home = () => {
 	const [url, seturl] = useState('');
 	const [loading, setloading] = useState(false);
 	const [content, setcontent] = useState(undefined);
-	const [theme, settheme] = useState(localStorage.getItem('color-theme') ?? 'dark-theme');
-
-	const dosettheme = to => {
-		localStorage.setItem('color-theme', to);
-		settheme(to);
-	}
-
-	const asdf = e => console.log("change:", e);
 
 	const doload = () => {
 		console.log("fetching:", url);
@@ -63,13 +56,6 @@ const Home = () => {
 	}
 
 
-
-	useEffect(() => {
-		document.body.className = theme;
-	}, [theme]);
-
-
-
 	return (loading ? <div><h1>Loading...</h1></div> :
 		(content
 			? <div>
@@ -82,10 +68,7 @@ const Home = () => {
 
 			: <div>
 				<h1>Drop file or pick a github url:</h1>
-				<button className="btn btn-secondary"
-						onClick={e => dosettheme(theme === 'light-theme' ? 'dark-theme' : 'light-theme')}>
-					{theme === 'light-theme' ? 'dark-theme' : 'light-theme'}
-				</button>
+				<ThemeSwitch />
 			    <div className="drop-area"
 					onDrop={onDrop}
 					onDragOver={dragHover}
