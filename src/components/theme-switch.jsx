@@ -15,8 +15,6 @@ const ThemeSwitch = (props) => {
 		document.body.className = theme;
 	}, [theme]);
 
-	console.log("here");
-
 	return <button className="btn btn-secondary"
 			onClick={e => dosettheme(theme === 'light-theme' ? 'dark-theme' : 'light-theme')}>
 		{theme === 'light-theme' ? 'dark-theme' : 'light-theme'}
