@@ -10,8 +10,6 @@ const Home = () => {
 	const [loading, setloading] = useState(false);
 	const [content, setcontent] = useState(undefined);
 
-
-
 	const loadcontent = content => {
 		var parsed_content = content.split('\n').map(s => s.trim()).filter(s => s).map(s => s.split(':', 2).map(s => s.trim()));
 		console.log(parsed_content);
@@ -19,20 +17,25 @@ const Home = () => {
 		setcontent(parsed_content);
 	};
 
-
-
 	return (loading ? <div><h1>Loading...</h1></div> :
-		(content
-			? <div>
-				<h1>Cards here</h1>
-				{content.map(entry => <FlipCard data={entry} key={entry[0]} />)}
-			</div>
+		<div>
+			<ThemeSwitch />
+			{content
+				? <div>
+					<h1>Cards:</h1>
+					<div className="container">
+						<div className="row">
+							{content.map(entry => <FlipCard data={entry} key={entry[0]} />)}
+						</div>
+					</div>
+					<button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Cards List</button>
+				</div>
 
-			: <div>
-				<h1>Drop file or pick a github url:</h1>
-				<ThemeSwitch />
-				<FileInputForm onload={loadcontent} setloading={setloading} />
-			</div>)
+				: <div>
+					<h1>Drop file or pick a github url:</h1>
+					<FileInputForm onload={loadcontent} setloading={setloading} />
+				</div>}
+		</div>
 	);
 }
 export default Home

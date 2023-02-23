@@ -4,8 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const ThemeSwitch = (props) => {
-	const [url, seturl] = useState('');
+	const [url, seturl] = useState('example_cards/test.txt');
 	// const [loading, setloading] = useState(false);
+
+	const available_urls = [
+		['', 'None'],
+		['example_cards/test.txt', 'Example Cards'],
+	];
 
 	const doloadbyurl = () => {
 		console.log("fetching:", url);
@@ -49,7 +54,15 @@ const ThemeSwitch = (props) => {
 					onDrop={onDrop}
 					onDragOver={dragHover}
 					onDragLeave={dragHover}></div>
-		<input className="form-control" onChange={e => seturl(event.target.value)} />
+
+		<select className="form-control"
+				value={url}
+				onChange={ e => seturl(e.target.value) }>
+			{available_urls.map(opt =>
+				<option key={opt[0]} value={opt[0]}>{opt[1]}</option>
+			)}
+		</select>
+		<input className="form-control" value={url} onChange={e => seturl(event.target.value)} />
 		<button className="btn btn-primary" onClick={doloadbyurl}>Submit</button>
 	</div>;
 }
