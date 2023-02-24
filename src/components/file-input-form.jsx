@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const ThemeSwitch = (props) => {
-	const [url, seturl] = useState('example_cards/test.txt');
+	const [url, seturl] = useState('example_cards/japanese-adjectives-1.txt');
 	// const [loading, setloading] = useState(false);
 
 	const available_urls = [
 		['', 'None'],
 		['example_cards/test.txt', 'Example Cards'],
+		['example_cards/japanese-adjectives-1.txt', 'Japanese Adjectives #1'],
 	];
 
 	const doloadbyurl = () => {
