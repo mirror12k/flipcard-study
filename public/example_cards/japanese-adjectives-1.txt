@@ -1,3 +1,4 @@
+::smallcards
 嬉しい: うれしい: happy
 楽しい: たのしい: fun
 静か: しずか: quiet
@@ -5,3 +6,6 @@
 辛い: からい: spicy
 寒い: さむい: cold
 暑い: あつい: hot
+早い: はやい: fast
+長い: ながい: long
+細い: ほそい: thin
