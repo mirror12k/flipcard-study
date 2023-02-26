@@ -19,7 +19,11 @@
 明るい: あかるい: bright
 暗い: くらい: dark
 
-
+危ない: あぶない: dangerous
+良い: いい/よい: good
+忙しい: いそがしい: busy
+大きい: おおきい: big
+小さい: ちいさい: small
 
 嬉しい: うれしい: happy
 静か: しずか: quiet
