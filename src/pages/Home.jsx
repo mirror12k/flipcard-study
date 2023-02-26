@@ -31,12 +31,12 @@ const Home = () => {
 			<ThemeSwitch />
 			{content
 				? <div>
-					<h1>Cards:</h1>
 					<div className="container">
 						<div className="row">
 							{shuffleArray(content).map(entry => <FlipCard config={config} data={entry} key={entry[0]} />)}
 						</div>
 					</div>
+					<button className="btn btn-secondary" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle Cards</button>
 					<button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Cards List</button>
 				</div>
 

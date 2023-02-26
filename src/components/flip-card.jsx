@@ -11,7 +11,7 @@ const FlipCard = (props) => {
 	const data = props.data;
 
 
-	return <div className={ 'm-0 flip-card ' + (props.config.smallcards ? 'small-card col-sm-3' : 'col-sm-4') } onClick={e => {
+	return <div className={ 'm-0 flip-card ' + (props.config.bigcard ? 'col-sm-4' : 'small-card col-sm-3') } onClick={e => {
 			cardref.current.classList.toggle('doflip');
 			if (cardref.current.classList.contains('doflip'))
 				setbackindex((backindex + 2) % data.length);
