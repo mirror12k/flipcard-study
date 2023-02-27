@@ -9,13 +9,14 @@ import Home from "./pages/Home";
 const App = () => {
 	return (
 		<div className="app">
-			<Routes>
+			<Home/>
+			{/*<Routes>
 				<Route path="/" element={ <Home/> } />
-				{/*<Route path="about" element={ <About/> } />
+				<Route path="about" element={ <About/> } />
 				<Route path="reservation" element={ <Reservation/> } />
 				<Route path="configuration" element={ <Configuration/> } />
-				<Route path="server_console" element={ <Console/> } />*/}
-			</Routes>
+				<Route path="server_console" element={ <Console/> } />
+			</Routes>*/}
 		</div>
 	)
 }
