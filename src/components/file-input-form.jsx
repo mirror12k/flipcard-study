@@ -5,12 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ThemeSwitch = (props) => {
 	const [url, seturl] = useState('example_cards/japanese-adjectives-1.txt');
+	const [selectedoption, setselectedoption] = useState('');
 	// const [loading, setloading] = useState(false);
 
 	const available_urls = [
 		['', 'None'],
-		['example_cards/test.txt', 'Example Cards'],
-		['example_cards/japanese-adjectives-1.txt', 'Japanese Adjectives #1'],
+		['example_cards/japanese-adjectives-1.txt', 'Japanese Adjectives #1: 赤い/強い/明るい'],
 	];
 
 	const doloadbyurl = () => {
@@ -51,20 +51,69 @@ const ThemeSwitch = (props) => {
 	}
 
 	return <div>
-		<div className="drop-area"
-					onDrop={onDrop}
-					onDragOver={dragHover}
-					onDragLeave={dragHover}></div>
-
-		<select className="form-control"
-				value={url}
-				onChange={ e => seturl(e.target.value) }>
-			{available_urls.map(opt =>
-				<option key={opt[0]} value={opt[0]}>{opt[1]}</option>
-			)}
-		</select>
-		<input className="form-control" value={url} onChange={e => seturl(event.target.value)} />
-		<button className="btn btn-primary" onClick={doloadbyurl}>Submit</button>
+		{ selectedoption === '' ?
+			<div className="container">
+				<h1 className="text-center">Select a list of cards:</h1>
+				<div className="row">
+					<div className="col-4">
+						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ABDAFC' }} onClick={e => setselectedoption('preset')}>Preset Cards</button>
+					</div>
+					<div className="col-4">
+						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ACACDE' }} onClick={e => setselectedoption('file')}>Custom Cards File</button>
+					</div>
+					<div className="col-4">
+						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#C490D1' }} onClick={e => setselectedoption('url')}>Custom Cards URL</button>
+					</div>
+				</div>
+			</div>
+		:
+			<div className="container">
+				<div className="row">
+					<div className="col-2"></div>
+					<div className="col-8">
+						{ selectedoption === 'preset' ?
+							<div>
+								<div className="p-2">
+									<h3 className="text-center">Select a preset list of cards to study:</h3>
+									<select className="form-control"
+											value={url}
+											onChange={ e => seturl(e.target.value) }>
+										{available_urls.map(opt =>
+											<option key={opt[0]} value={opt[0]}>{opt[1]}</option>
+										)}
+									</select>
+								</div>
+								<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={doloadbyurl}>Load</button></div>
+								<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setselectedoption('')}>Back</button></div>
+							</div>
+						: '' }
+						{ selectedoption === 'file' ?
+							<div>
+								<div className="p-2">
+									<h3 className="text-center">Drag and drop a file here to load the cards list</h3>
+									<div className="drop-area bg-primary"
+											onDrop={onDrop}
+											onDragOver={dragHover}
+											onDragLeave={dragHover}></div>
+								</div>
+								<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setselectedoption('')}>Back</button></div>
+							</div>
+						: '' }
+						{ selectedoption === 'url' ?
+							<div>
+								<div className="p-2">
+									<h3 className="text-center">Enter a url (e.g. a github raw url) to load it:</h3>
+									<input className="form-control" value={url} onChange={e => seturl(event.target.value)} />
+								</div>
+								<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={doloadbyurl}>Load</button></div>
+								<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setselectedoption('')}>Back</button></div>
+							</div>
+						: '' }
+					</div>
+					<div className="col-2"></div>
+				</div>
+			</div>
+		}
 	</div>;
 }
 export default ThemeSwitch

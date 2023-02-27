@@ -41,7 +41,6 @@ const Home = () => {
 				</div>
 
 				: <div>
-					<h1>Drop file or pick a github url:</h1>
 					<FileInputForm onload={loadcontent} setloading={setloading} />
 				</div>}
 		</div>
