@@ -11,6 +11,7 @@ const ThemeSwitch = (props) => {
 	const available_urls = [
 		['', 'None'],
 		['example_cards/japanese-adjectives-1.txt', 'Japanese Adjectives #1: 赤い/強い/明るい'],
+		['example_cards/japanese-adjectives-2.txt', 'Japanese Adjectives #2: 短い/鋭い/可愛い'],
 	];
 
 	const doloadbyurl = () => {
