@@ -24,5 +24,8 @@ jobs:
           mv dist upload_project/flipcard
           git config --global user.email "robot@robot.local"
           git config --global user.name "robot"
-          cd upload_project && git push "https://x-access-token:$API_TOKEN_GITHUB@github.com/mirror12k/mirror12k.github.io.git"
+          cd upload_project
+          git add flipcard
+          git commit -m 'automated build push!'
+          git push "https://x-access-token:$API_TOKEN_GITHUB@github.com/mirror12k/mirror12k.github.io.git"
           git status
