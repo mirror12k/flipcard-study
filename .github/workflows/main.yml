@@ -10,10 +10,19 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: '16.x'
           cache: 'npm'
       - run: npm i
       - run: npm run build
-      - run: git clone --single-branch "https://github.com/mirror12k/mirror12k.github.io.git" "upload_project" && ls upload_project
-      - run: rm -rf upload_project/flipcard
-      - run: mv dist upload_project/flipcard
+      - name: Clone and push build
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        run: |
+          git clone --single-branch "https://github.com/mirror12k/mirror12k.github.io.git" "upload_project"
+          ls upload_project
+          rm -rf upload_project/flipcard
+          mv dist upload_project/flipcard
+          git config --global user.email "robot@robot.local"
+          git config --global user.name "robot"
+          cd upload_project && git push "https://x-access-token:$API_TOKEN_GITHUB@github.com/mirror12k/mirror12k.github.io.git"
+          git status
