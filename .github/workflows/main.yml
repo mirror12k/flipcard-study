@@ -12,5 +12,7 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
-      - run: npm i
-      - run: npm run build
+      # - run: npm i
+      # - run: npm run build
+      - run: git clone --single-branch "https://github.com/mirror12k/mirror12k.github.io.git" "upload_project"
+      - run: ls upload_project
