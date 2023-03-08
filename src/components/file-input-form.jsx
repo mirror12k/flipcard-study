@@ -57,13 +57,13 @@ const ThemeSwitch = (props) => {
 			<div className="container">
 				<h1 className="text-center">Select a list of cards:</h1>
 				<div className="row">
-					<div className="col-4">
+					<div className="col-md-4">
 						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ABDAFC' }} onClick={e => setselectedoption('preset')}>Preset Cards</button>
 					</div>
-					<div className="col-4">
+					<div className="col-md-4">
 						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ACACDE' }} onClick={e => setselectedoption('file')}>Custom Cards File</button>
 					</div>
-					<div className="col-4">
+					<div className="col-md-4">
 						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#C490D1' }} onClick={e => setselectedoption('url')}>Custom Cards URL</button>
 					</div>
 				</div>
@@ -71,8 +71,8 @@ const ThemeSwitch = (props) => {
 		:
 			<div className="container">
 				<div className="row">
-					<div className="col-2"></div>
-					<div className="col-8">
+					<div className="col-md-2"></div>
+					<div className="col-md-8">
 						{ selectedoption === 'preset' ?
 							<div>
 								<div className="p-2">
@@ -112,7 +112,7 @@ const ThemeSwitch = (props) => {
 							</div>
 						: '' }
 					</div>
-					<div className="col-2"></div>
+					<div className="col-md-2"></div>
 				</div>
 			</div>
 		}
