@@ -13,6 +13,7 @@ const ThemeSwitch = (props) => {
 		['example_cards/japanese-adjectives-1.txt', 'Japanese Adjectives #1: 赤い/強い/明るい'],
 		['example_cards/japanese-adjectives-2.txt', 'Japanese Adjectives #2: 短い/鋭い/可愛い'],
 		['example_cards/japanese-vocab-1.txt', 'Japanese Vocab #1: 眼鏡/別に/知る'],
+		['example_cards/japanese-vocab-2.txt', 'Japanese Vocab #2: 会話/間違い/文'],
 	];
 
 	const doloadbyurl = () => {
