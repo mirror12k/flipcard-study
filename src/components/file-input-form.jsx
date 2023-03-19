@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CustomCardDesigner from "./custom-card-designer";
+import CustomCardStorage from "./custom-card-storage";
+import { loadCustomCards, setCustomCard } from "../util/storage";
 
 
 
-const ThemeSwitch = (props) => {
+const FileInputForm = (props) => {
 	const [url, seturl] = useState('example_cards/japanese-adjectives-1.txt');
 	const [selectedoption, setselectedoption] = useState('');
+	const [title, settitle] = useState(undefined);
+	const [customtext, setcustomtext] = useState(undefined);
 	// const [loading, setloading] = useState(false);
 
 	const available_urls = [
@@ -56,16 +61,27 @@ const ThemeSwitch = (props) => {
 	return <div>
 		{ selectedoption === '' ?
 			<div className="container">
-				<h1 className="text-center">Select a list of cards:</h1>
+				<div className="p-2"><h1 className="text-center">Please select an source:</h1></div>
 				<div className="row">
-					<div className="col-md-4">
-						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ABDAFC' }} onClick={e => setselectedoption('preset')}>Preset Cards</button>
+					<div className="col-md-3">
+						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#ABDAFC' }} onClick={e => setselectedoption('preset')}>
+							Preset Cards
+						</button>
 					</div>
-					<div className="col-md-4">
-						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#ACACDE' }} onClick={e => setselectedoption('file')}>Custom Cards File</button>
+					<div className="col-md-3">
+						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#ACACDE' }} onClick={e => setselectedoption('custom')}>
+							Custom Cards
+						</button>
 					</div>
-					<div className="col-md-4">
-						<button className="btn btn-primary select-button text-dark" style={{ 'background-color': '#C490D1' }} onClick={e => setselectedoption('url')}>Custom Cards URL</button>
+					<div className="col-md-3">
+						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#C490D1' }} onClick={e => setselectedoption('file')}>
+							Drag & Drop Cards File
+						</button>
+					</div>
+					<div className="col-md-3">
+						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#f0a9a1' }} onClick={e => setselectedoption('url')}>
+							Load Cards by Url
+						</button>
 					</div>
 				</div>
 			</div>
@@ -73,7 +89,7 @@ const ThemeSwitch = (props) => {
 			<div className="container">
 				<div className="row">
 					<div className="col-md-2"></div>
-					<div className="col-md-8">
+					<div className={selectedoption === 'custom' ? "col-md-12" : "col-md-8"}>
 						{ selectedoption === 'preset' ?
 							<div>
 								<div className="p-2">
@@ -88,6 +104,27 @@ const ThemeSwitch = (props) => {
 								</div>
 								<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={doloadbyurl}>Load</button></div>
 								<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setselectedoption('')}>Back</button></div>
+							</div>
+						: '' }
+						{ selectedoption === 'custom' ?
+							<div>
+								{ customtext === undefined
+									? <div className="p-2">
+										<CustomCardStorage doloadcustombyname={k => { setcustomtext(loadCustomCards()[k]); settitle(k) }} />
+										<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => { setcustomtext(':'); settitle('My Custom Cards') }}>Create New</button></div>
+										<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setselectedoption('')}>Back</button></div>
+									</div>
+									: <>
+										<div className="p-2">
+											<CustomCardDesigner title={title} settitle={settitle} customtext={customtext} setcustomtext={setcustomtext} />
+										</div>
+										<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => {
+											props.onload(customtext);
+											setCustomCard(title, customtext);
+										}}>Save and Study</button></div>
+										<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setcustomtext(undefined)}>Back</button></div>
+									</>
+								}
 							</div>
 						: '' }
 						{ selectedoption === 'file' ?
@@ -106,6 +143,7 @@ const ThemeSwitch = (props) => {
 							<div>
 								<div className="p-2">
 									<h3 className="text-center">Enter a url (e.g. a github raw url) to load it:</h3>
+									<p className="text-muted">e.g. https://raw.githubusercontent.com/mirror12k/mirror12k.github.io/master/flipcard/example_cards/japanese-adjectives-1.txt</p>
 									<input className="form-control" value={url} onChange={e => seturl(event.target.value)} />
 								</div>
 								<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={doloadbyurl}>Load</button></div>
@@ -119,6 +157,6 @@ const ThemeSwitch = (props) => {
 		}
 	</div>;
 }
-export default ThemeSwitch
+export default FileInputForm
 
 

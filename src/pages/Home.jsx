@@ -28,20 +28,27 @@ const Home = () => {
 
 	return (loading ? <div><h1>Loading...</h1></div> :
 		<div>
-			<ThemeSwitch />
 			{content
 				? <div>
+					<div className="text-center p-2">
+						<ThemeSwitch />
+						<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle Cards</button></div>
+						<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Menu</button></div>
+					</div>
 					<div className="container">
 						<div className="row">
 							{shuffleArray(content).map(entry => <FlipCard config={config} data={entry} key={entry[0]} />)}
 						</div>
 					</div>
-					<button className="btn btn-secondary" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle Cards</button>
-					<button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Cards List</button>
+					<div className="text-center p-2">
+						<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle Cards</button></div>
+						<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Menu</button></div>
+					</div>
 				</div>
 
 				: <div>
-					<FileInputForm onload={loadcontent} setloading={setloading} />
+					<div className="text-center"><ThemeSwitch /></div>
+					<div><FileInputForm onload={loadcontent} setloading={setloading} /></div>
 				</div>}
 		</div>
 	);
