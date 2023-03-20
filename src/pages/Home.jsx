@@ -16,7 +16,7 @@ const Home = () => {
 		var lines = content.split('\n').map(s => s.trim()).filter(s => s);
 		var instruction_lines = lines.filter(s => s.startsWith('::')).map(s => s.substr(2));
 		var card_lines = lines.filter(s => !s.startsWith('::'));
-		var parsed_content = card_lines.map(s => s.split(':').map(s => s.trim()));
+		var parsed_content = card_lines.map(s => s.split(/:|：/).map(s => s.trim()));
 
 		var parsed_config = {};
 		instruction_lines.forEach(s => parsed_config[s] = true);
