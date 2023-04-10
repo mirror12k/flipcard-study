@@ -22,6 +22,7 @@ const FileInputForm = (props) => {
 		['example_cards/japanese-vocab-3.txt', 'Japanese Vocab #3: 零度/拉麺/痒い'],
 		['example_cards/japanese-numbers-1.txt', 'Japanese Numbers #1: 八日/来月/四つ'],
 		['example_cards/japanese-vocab-4.txt', 'Japanese Vocab #4: 濃い/羨ましい/場所'],
+		['example_cards/japanese-vocab-5.txt', 'Japanese Vocab #5: 厳しい/珍しい/淋しい'],
 	];
 
 	const doloadbyurl = () => {
