@@ -26,6 +26,8 @@ const Home = () => {
 		setcontent(parsed_content);
 	};
 
+	var random_index = Math.floor(Math.random() * 1000000);
+
 	return (loading ? <div><h1>Loading...</h1></div> :
 		<div>
 			{content
@@ -37,7 +39,7 @@ const Home = () => {
 					</div>
 					<div className="container">
 						<div className="row">
-							{shuffleArray(content).map(entry => <FlipCard config={config} data={entry} key={entry[0]} />)}
+							{shuffleArray(content).map(entry => <FlipCard config={config} data={entry} key={entry[0] + ":" + random_index} />)}
 						</div>
 					</div>
 					<div className="text-center p-2">
