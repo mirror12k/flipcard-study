@@ -38,11 +38,17 @@ const Home = () => {
 		return arr;
 	};
 
+	const reverseCardsArray = arr => {
+		arr.forEach(a => a.reverse());
+		return arr;
+	};
+
 
 	const ButtonsRow = () => (<div className="text-center p-2">
 			<ThemeSwitch />
-			<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setcontent(sortArray(content).map(a => a))}>Sort</button></div>
-			<div className="ml-2 d-inline"><button className="btn btn-secondary" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button sort-button" onClick={e => setcontent(sortArray(content).map(a => a))}>Sort</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button shuffle-button" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button" onClick={e => setcontent(reverseCardsArray(content).map(a => a))}>Flip All</button></div>
 			<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Menu</button></div>
 		</div>);
 
