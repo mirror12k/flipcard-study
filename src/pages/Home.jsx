@@ -59,7 +59,7 @@ const Home = () => {
 					<ButtonsRow />
 					<div className="container">
 						<div className="row">
-							{content.map(entry => <FlipCard config={config} data={entry} key={entry[0] + ":" + random_index} />)}
+							{content.map((entry, i) => <FlipCard config={config} data={entry} key={entry[0] + ":" + i + ":" + random_index} />)}
 						</div>
 					</div>
 					<ButtonsRow />
