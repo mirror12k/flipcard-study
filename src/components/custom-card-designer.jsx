@@ -18,10 +18,12 @@ const CustomCardRow = ({ value, setvalue, deleteMe }) => {
 	}
 
 	return <div className="row">
-		{values_list.map((v, i) => <div className="col-auto p-1" key={i}>
-			<input className="w-100 form-control" type="text"
+		{values_list.map((v, i) => <div className="col-auto p-0" key={i}>
+			<input className="w-100 form-control"
+				type="text"
 				placeholder={ i === 0 ? "Card front" : "Card back" }
 				value={v}
+				style={{borderRadius: '0px'}} 
 				onChange={e => setByIndex(i, e.target.value)} />
 		</div>)}
 		
@@ -40,9 +42,20 @@ const CustomCardRow = ({ value, setvalue, deleteMe }) => {
 	</div>;
 }
 
+const CustomTextEditor = ({ value, setvalue }) => {
+	// const [loading, setloading] = useState(false);
+
+	return <div className="row">
+		<div className="form-group" style={{width: '100%', minHeight: '400px'}}>
+			<textarea className="form-control" value={value} onChange={e => setvalue(e.target.value)} style={{width: '100%', minHeight: '400px'}} />
+		</div>
+	</div>;
+}
+
 
 const CustomCardDesigner = ({ title, settitle, customtext, setcustomtext }) => {
 	// const [data, setdata] = useState([ ':' ]);
+	const [mode, setmode] = useState('fancy-editor');
 
 	const data = customtext.split('\n');
 	const setdata = d => { setcustomtext(d.join('\n')) };
@@ -64,10 +77,22 @@ const CustomCardDesigner = ({ title, settitle, customtext, setcustomtext }) => {
 			<div className="col-2"><h3 className="d-inline">Title:</h3></div>
 			<div className="col-6"><input className="form-control" value={title} onChange={e => settitle(e.target.value)} /></div>
 		</div>
-		{data.map((r,i) => <CustomCardRow setvalue={v => setByIndex(i, v)} value={r} key={i} deleteMe={() => deleteByIndex(i)} />)}
-		<div className="col-auto p-1">
-			<div className="ml-2 d-inline"><button className="btn btn-success" onClick={e => setdata([ ...data, ':' ])}>Add Row</button></div>
-		</div>
+		{ mode === 'fancy-editor' ? <>
+			{data.map((r,i) => <CustomCardRow setvalue={v => setByIndex(i, v)} value={r} key={i} deleteMe={() => deleteByIndex(i)} />)}
+			<div className="col-auto p-1">
+				<div className="ml-2 d-inline"><button className="btn btn-success" onClick={e => setdata([ ...data, ':' ])}>Add Row</button></div>
+				<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => setmode(mode === 'fancy-editor' ? 'text-editor' : 'fancy-editor')}>
+					{ mode === 'fancy-editor' ? 'Edit as Text' : 'Edit as Cells'}
+				</button></div>
+			</div>
+		</> : <>
+			<CustomTextEditor setvalue={v => setcustomtext(v)} value={customtext} />
+			<div className="col-auto p-1">
+				<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => setmode(mode === 'fancy-editor' ? 'text-editor' : 'fancy-editor')}>
+					{ mode === 'fancy-editor' ? 'Edit as Text' : 'Edit as Cells'}
+				</button></div>
+			</div>
+		</>}
 	</div>;
 }
 
