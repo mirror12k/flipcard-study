@@ -12,6 +12,8 @@ const Home = () => {
 	const [config, setconfig] = useState(undefined);
 	const [content, setcontent] = useState(undefined);
 
+	document.body.className = 'dark-theme';
+
 	const loadcontent = content => {
 		var lines = content.split('\n').map(s => s.trim()).filter(s => s);
 		var instruction_lines = lines.filter(s => s.startsWith('::')).map(s => s.substr(2));
@@ -45,7 +47,7 @@ const Home = () => {
 
 
 	const ButtonsRow = () => (<div className="text-center p-2">
-			<ThemeSwitch />
+			{/*<ThemeSwitch />*/}
 			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button sort-button" onClick={e => setcontent(sortArray(content).map(a => a))}>Sort</button></div>
 			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button shuffle-button" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
 			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button" onClick={e => setcontent(reverseCardsArray(content).map(a => a))}>Flip All</button></div>
@@ -66,7 +68,7 @@ const Home = () => {
 				</div>
 
 				: <div>
-					<div className="text-center"><ThemeSwitch /></div>
+					{/*<div className="text-center"><ThemeSwitch /></div>*/}
 					<div><FileInputForm onload={loadcontent} setloading={setloading} /></div>
 				</div>}
 		</div>
