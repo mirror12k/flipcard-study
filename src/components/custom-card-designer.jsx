@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { downloadStringFile } from "../util/util";
 
 
 const CustomCardRow = ({ value, setvalue, deleteMe }) => {
@@ -78,21 +78,19 @@ const CustomCardDesigner = ({ title, settitle, customtext, setcustomtext }) => {
 			<div className="col-6"><input className="form-control" value={title} onChange={e => settitle(e.target.value)} /></div>
 		</div>
 		{ mode === 'fancy-editor' ? <>
-			{data.map((r,i) => <CustomCardRow setvalue={v => setByIndex(i, v)} value={r} key={i} deleteMe={() => deleteByIndex(i)} />)}
-			<div className="col-auto p-1">
-				<div className="ml-2 d-inline"><button className="btn btn-success" onClick={e => setdata([ ...data, ':' ])}>Add Row</button></div>
-				<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => setmode(mode === 'fancy-editor' ? 'text-editor' : 'fancy-editor')}>
-					{ mode === 'fancy-editor' ? 'Edit as Text' : 'Edit as Cells'}
-				</button></div>
-			</div>
+			{data.map((r,i) => <CustomCardRow key={i} value={r} setvalue={v => setByIndex(i, v)} deleteMe={() => deleteByIndex(i)} />)}
 		</> : <>
-			<CustomTextEditor setvalue={v => setcustomtext(v)} value={customtext} />
-			<div className="col-auto p-1">
-				<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => setmode(mode === 'fancy-editor' ? 'text-editor' : 'fancy-editor')}>
-					{ mode === 'fancy-editor' ? 'Edit as Text' : 'Edit as Cells'}
-				</button></div>
-			</div>
+			<CustomTextEditor value={customtext} setvalue={v => setcustomtext(v)} />
 		</>}
+		<div className="col-auto p-1">
+			{ mode === 'fancy-editor' ?
+				<div className="ml-2 d-inline"><button className="btn btn-success" onClick={e => setdata([ ...data, ':' ])}>Add Row</button></div>
+				: '' }
+			<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => setmode(mode === 'fancy-editor' ? 'text-editor' : 'fancy-editor')}>
+				{ mode === 'fancy-editor' ? 'Edit as Text' : 'Edit as Cells'}
+			</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-warning" onClick={e => downloadStringFile('cards.txt', customtext)}>Download File</button></div>
+		</div>
 	</div>;
 }
 

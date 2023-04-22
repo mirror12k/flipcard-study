@@ -6,12 +6,34 @@ import { loadCustomCards, setCustomCard } from "../util/storage";
 
 
 
+
+const MenuButton = ({ style, onclick, text }) => {
+	const menubuttonref = useRef(null);
+
+	return <div className="col-md-3 menu-flip-card" ref={menubuttonref}>
+		<div className="menu-flip-card-inner">
+			<button className="btn btn-primary select-button text-dark" style={style}
+					onClick={e => {
+						menubuttonref.current.classList.toggle('doflip');
+						setTimeout(onclick, 300);
+					}}>
+				{text}
+			</button>
+		</div>
+	</div>;
+}
+
 const FileInputForm = (props) => {
 	const [url, seturl] = useState('example_cards/japanese-adjectives-1.txt');
 	const [selectedoption, setselectedoption] = useState('');
 	const [title, settitle] = useState(undefined);
 	const [customtext, setcustomtext] = useState(undefined);
 	// const [loading, setloading] = useState(false);
+
+	const menubuttonref0 = useRef(null);
+	const menubuttonref1 = useRef(null);
+	const menubuttonref2 = useRef(null);
+	const menubuttonref3 = useRef(null);
 
 	const available_urls = [
 		['', 'None'],
@@ -69,26 +91,10 @@ const FileInputForm = (props) => {
 			<div className="container">
 				<div className="p-2"><h1 className="text-center">Please select an source:</h1></div>
 				<div className="row">
-					<div className="col-md-3">
-						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#ABDAFC' }} onClick={e => setselectedoption('preset')}>
-							Preset Cards
-						</button>
-					</div>
-					<div className="col-md-3">
-						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#ACACDE' }} onClick={e => setselectedoption('custom')}>
-							Custom Cards
-						</button>
-					</div>
-					<div className="col-md-3">
-						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#C490D1' }} onClick={e => setselectedoption('file')}>
-							Drag & Drop Cards File
-						</button>
-					</div>
-					<div className="col-md-3">
-						<button className="btn btn-primary select-button text-dark" style={{ backgroundColor: '#f0a9a1' }} onClick={e => setselectedoption('url')}>
-							Load Cards by Url
-						</button>
-					</div>
+					<MenuButton style={{ backgroundColor: '#ABDAFC' }} text="Preset Cards" onclick={() => setselectedoption('preset')} />
+					<MenuButton style={{ backgroundColor: '#ACACDE' }} text="Custom Cards" onclick={() => setselectedoption('custom')} />
+					<MenuButton style={{ backgroundColor: '#C490D1' }} text="Drag & Drop Cards File" onclick={() => setselectedoption('file')} />
+					<MenuButton style={{ backgroundColor: '#f0a9a1' }} text="Load Cards by Url" onclick={() => setselectedoption('url')} />
 				</div>
 			</div>
 		:
