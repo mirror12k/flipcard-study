@@ -10,9 +10,16 @@ export const shuffleArray = array => {
 	return array;
 };
 
-
-
 export const reverseString = s => [...s].reverse().join("");
+
+export const groupBy = (arr, fun) => {
+	var i = 0;
+	return arr.reduce((r, v) => {
+		const key = fun(v, i++);
+		(r[key] = r[key] || []).push(v);
+		return r;
+	}, {});
+};
 
 // https://www.stefanjudis.com/snippets/how-trigger-file-downloads-with-javascript/
 export const downloadStringFile = (filename, text) => {

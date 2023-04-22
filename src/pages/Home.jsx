@@ -3,14 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import ThemeSwitch from "../components/theme-switch";
 import FileInputForm from "../components/file-input-form";
 import FlipCard from "../components/flip-card";
-import { shuffleArray, reverseString } from "../util/util";
+import MatchCard from "../components/match-card";
+import { shuffleArray, reverseString, groupBy } from "../util/util";
 
 
 
 const Home = () => {
 	const [loading, setloading] = useState(false);
 	const [config, setconfig] = useState(undefined);
+	const [runtimeconfig, setruntimeconfig] = useState({});
 	const [content, setcontent] = useState(undefined);
+	const selectedcard = useRef(null);
 
 	document.body.className = 'dark-theme';
 
@@ -28,6 +31,7 @@ const Home = () => {
 		// console.log(parsed_content);
 		setloading(false);
 		setconfig(parsed_config);
+		setruntimeconfig({ ...runtimeconfig, match_cards: false });
 		setcontent(shuffleArray(parsed_content));
 	};
 
@@ -45,13 +49,46 @@ const Home = () => {
 		return arr;
 	};
 
+	const setselectedcard = card => {
+		selectedcard.current?.classList.toggle('selected');
+		selectedcard.current = card;
+		selectedcard.current?.classList.toggle('selected');
+	}
+
+	const onmatchcardclick = card => {
+		if (selectedcard.current === null) {
+			setselectedcard(card);
+		} else if (content.some(other => (other[0] === card.dataset.value && other[other.length - 1] === selectedcard.current.dataset.value)
+				|| (other[other.length - 1] === card.dataset.value && other[0] === selectedcard.current.dataset.value))) {
+			selectedcard.current.classList.toggle('doflip');
+			card.classList.toggle('doflip');
+
+			var toremove = [ selectedcard.current, card ];
+			setTimeout(() => {
+				toremove.forEach(e => e.remove());
+			}, 500);
+			setselectedcard(null);
+		} else {
+			// console.log("wrong card: ", card.dataset.value,  " vs: ", selectedcard.current.dataset.value);
+			setselectedcard(null);
+		}
+	};
+
 
 	const ButtonsRow = () => (<div className="text-center p-2">
 			{/*<ThemeSwitch />*/}
-			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button sort-button" onClick={e => setcontent(sortArray(content).map(a => a))}>Sort</button></div>
-			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button shuffle-button" onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
-			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button" onClick={e => setcontent(reverseCardsArray(content).map(a => a))}>Flip All</button></div>
-			<div className="ml-2 d-inline"><button className="btn btn-primary" onClick={e => setcontent(undefined)}>Back to Menu</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button sort-button"
+					onClick={e => setcontent(sortArray(content).map(a => a))}>Sort</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button shuffle-button"
+					onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button"
+					onClick={e => setcontent(reverseCardsArray(content).map(a => a))}>Flip All</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button"
+					onClick={e => setruntimeconfig({ ...runtimeconfig, match_cards: !runtimeconfig.match_cards })}>
+				{ runtimeconfig.match_cards ? 'Flip Cards' : 'Match Cards'}
+			</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-primary"
+					onClick={e => setcontent(undefined)}>Back to Menu</button></div>
 		</div>);
 
 	return (loading ? <div><h1>Loading...</h1></div> :
@@ -59,11 +96,30 @@ const Home = () => {
 			{content
 				? <div>
 					<ButtonsRow />
-					<div className="container">
-						<div className="row">
-							{content.map((entry, i) => <FlipCard config={config} data={entry} key={entry[0] + ":" + i + ":" + random_index} />)}
+					{ runtimeconfig.match_cards ?
+						Object.values(groupBy(content, (v, i) => i - i % 12)).map((group, i) => <div key={i} className="container">
+							<div className="row">
+								<div className="col-5 container">
+									<div className="row">
+										{group.map((entry, i) => <MatchCard key={entry[0] + ":" + i + ":" + random_index} config={config} data={entry[0]} onclick={onmatchcardclick} />)}
+									</div>
+								</div>
+								<div className="p-1"></div>
+								<div className="col-5 container">
+									<div className="row">
+										{shuffleArray([...group]).map((entry, i) => <MatchCard key={entry[entry.length - 1] + ":" + i + ":" + random_index} config={config} data={entry[entry.length - 1]} onclick={onmatchcardclick} />)}
+									</div>
+								</div>
+							</div>
+							<hr />
+						</div>)
+					:
+						<div className="container">
+							<div className="row">
+									{ content.map((entry, i) => <FlipCard key={entry[0] + ":" + i + ":" + random_index} config={config} data={entry} />) }
+							</div>
 						</div>
-					</div>
+					}
 					<ButtonsRow />
 				</div>
 

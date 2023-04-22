@@ -50,7 +50,7 @@ const FileInputForm = (props) => {
 	];
 
 	const doloadbyurl = () => {
-		console.log("fetching:", url);
+		// console.log("fetching:", url);
 		props.setloading(true);
 		fetch(url).then(r => r.text()).then(props.onload);
 	};

@@ -5,24 +5,20 @@ import { playAudio } from "../util/audio";
 
 
 
-const FlipCard = (props) => {
+const FlipCard = ({ data, config }) => {
 	const [frontindex, setfrontindex] = useState(0);
 	const [backindex, setbackindex] = useState(-1);
 	const cardref = useRef(null);
-
-	const data = props.data;
-	const config = props.config;
 
 	const onPlayAudio = (e, text) => {
 		e.stopPropagation();
 		e.preventDefault();
 		playAudio(config.locale, text);
-		// new Audio('https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%B3%A3%E3%81%84%E3%81%A6%E3%81%AA%E3%81%84&tl='+config.locale+'&client=tw-ob').play();
 		return false;
 	};
 
 
-	return <div className={ 'm-0 flip-card ' + (config.bigcard ? 'col-sm-4' : 'small-card col-sm-3') } onClick={e => {
+	return <div className="m-0 flip-card small-card col-sm-3" onClick={e => {
 			cardref.current.classList.toggle('doflip');
 			if (cardref.current.classList.contains('doflip'))
 				setbackindex((backindex + 2) % data.length);
