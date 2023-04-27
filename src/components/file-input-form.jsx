@@ -43,6 +43,7 @@ const FileInputForm = (props) => {
 		['example_cards/japanese-vocab-2.txt', 'Japanese Vocab #2: 会話/間違い/文'],
 		['example_cards/japanese-vocab-3.txt', 'Japanese Vocab #3: 零度/拉麺/痒い'],
 		['example_cards/japanese-numbers-1.txt', 'Japanese Numbers #1: 八日/来月/四つ'],
+		['example_cards/japanese-days-1.txt', 'Japanese Days #1: 今日/一昨年/再来月'],
 		['example_cards/japanese-vocab-4.txt', 'Japanese Vocab #4: 濃い/羨ましい/場所'],
 		['example_cards/japanese-vocab-5.txt', 'Japanese Vocab #5: 厳しい/珍しい/淋しい'],
 		['example_cards/japanese-vocab-6.txt', 'Japanese Vocab #6: 論文/就活/段々'],
