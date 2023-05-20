@@ -13,6 +13,7 @@ const Home = () => {
 	const [config, setconfig] = useState(undefined);
 	const [runtimeconfig, setruntimeconfig] = useState({});
 	const [content, setcontent] = useState(undefined);
+	// const [stats, setstats] = useState({});
 	const selectedcard = useRef(null);
 
 	document.body.className = 'dark-theme';
@@ -74,6 +75,18 @@ const Home = () => {
 		}
 	};
 
+	var stats = {};
+	const updatestats = (prop, val) => {
+		stats[prop] = val;
+		console.log("stats:", stats);
+	};
+
+	const filterDifficultCards = arr => {
+		arr = arr.filter(card => stats[card[0]+"_clicked"]);
+		console.log("stats:", stats);
+		return arr;
+	};
+
 
 	const ButtonsRow = () => (<div className="text-center p-2">
 			{/*<ThemeSwitch />*/}
@@ -83,10 +96,12 @@ const Home = () => {
 					onClick={e => setcontent(shuffleArray(content).map(a => a))}>Shuffle</button></div>
 			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button"
 					onClick={e => setcontent(reverseCardsArray(content).map(a => a))}>Flip All</button></div>
-			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button flip-button"
+			<div className="ml-2 d-inline"><button className="btn btn-secondary tooltip-button matchcards-button"
 					onClick={e => setruntimeconfig({ ...runtimeconfig, match_cards: !runtimeconfig.match_cards })}>
 				{ runtimeconfig.match_cards ? 'Flip Cards' : 'Match Cards'}
 			</button></div>
+			<div className="ml-2 d-inline"><button className="btn btn-warning tooltip-button filter-difficult-button"
+					onClick={e => setcontent(filterDifficultCards(content).map(a => a))}>Filter Difficult Cards</button></div>
 			<div className="ml-2 d-inline"><button className="btn btn-primary"
 					onClick={e => setcontent(undefined)}>Back to Menu</button></div>
 		</div>);
@@ -97,7 +112,7 @@ const Home = () => {
 				? <div>
 					<ButtonsRow />
 					{ runtimeconfig.match_cards ?
-						Object.values(groupBy(content, (v, i) => i - i % 12)).map((group, i) => <div key={i} className="container">
+						Object.values(groupBy(content, (v, i) => i - i % 9)).map((group, i) => <div key={i} className="container">
 							<div className="row">
 								<div className="col-5 container">
 									<div className="row">
@@ -116,7 +131,7 @@ const Home = () => {
 					:
 						<div className="container">
 							<div className="row">
-									{ content.map((entry, i) => <FlipCard key={entry[0] + ":" + i + ":" + random_index} config={config} data={entry} />) }
+									{ content.map((entry, i) => <FlipCard key={entry[0] + ":" + i + ":" + random_index} config={config} data={entry} onClick={() => updatestats(entry[0] + "_clicked", true)} />) }
 							</div>
 						</div>
 					}

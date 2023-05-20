@@ -5,7 +5,7 @@ import { playAudio } from "../util/audio";
 
 
 
-const FlipCard = ({ data, config }) => {
+const FlipCard = ({ data, config, onClick }) => {
 	const [frontindex, setfrontindex] = useState(0);
 	const [backindex, setbackindex] = useState(-1);
 	const cardref = useRef(null);
@@ -24,6 +24,9 @@ const FlipCard = ({ data, config }) => {
 				setbackindex((backindex + 2) % data.length);
 			else
 				setfrontindex((frontindex + 2) % data.length);
+
+			onClick();
+			return false;
 		} } ref={cardref}>
 		<div className="flip-card-inner">
 			<div className="card d-block p-2 text-center flip-card-front">
