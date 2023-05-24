@@ -50,6 +50,7 @@ const FileInputForm = (props) => {
 		['example_cards/japanese-vocab-7.txt', 'Japanese Vocab #7: 久々/優秀/多分'],
 		['example_cards/japanese-vocab-8.txt', 'Japanese Vocab #8: 人間的だ/無名だ'],
 		['example_cards/japanese-vocab-9.txt', 'Japanese Vocab #9: 生徒/曖昧だ/消極的だ'],
+		['example_cards/japanese-vocab-10.txt', 'Japanese Vocab #10: 意外だ/邪悪だ/女性'],
 	];
 
 	const doloadbyurl = () => {
